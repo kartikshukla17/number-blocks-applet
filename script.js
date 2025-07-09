@@ -575,7 +575,7 @@
 
         // Character image at bottom right, replacing Next button
         const characterImg = document.createElement("img");
-        characterImg.src = "assets/character3.png";
+        characterImg.src = "assets/character4.png";
         characterImg.alt = "character";
         characterImg.style.position = "absolute";
         characterImg.style.right = "40px";
