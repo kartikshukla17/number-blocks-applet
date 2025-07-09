@@ -12,6 +12,7 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
+  padding-bottom: 80px; /* space for nav bar */
 }
 
 #slide-container {
@@ -134,6 +135,14 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  border-radius: 0;
+  width: 100vw;
+  box-sizing: border-box;
 }
 
 button {
@@ -279,6 +288,19 @@ button:disabled {
   button {
     font-size: 24px;
     padding: 10px 20px;
+  }
+}
+
+@media (max-width: 900px) {
+  .navigation {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    border-radius: 0;
+    width: 100vw;
+    box-sizing: border-box;
   }
 }
 
