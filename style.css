@@ -438,27 +438,29 @@ button.next-highlighted {
 }
 
 .multiples-summary-bg .summary-title {
-  font-size: 84px;
+  font-size: 72px;
   font-weight: bold;
   color: white;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   text-align: center;
+  font-family: Arial, sans-serif;
 }
 
 .multiples-summary-bg .summary-subtitle {
-  font-size: 52px;
-  font-weight: bold;
+  font-size: 48px;
+  font-weight: normal;
   color: white;
-  margin-bottom: 80px;
+  margin-bottom: 60px;
   text-align: center;
   line-height: 1.2;
+  font-family: Arial, sans-serif;
 }
 
 .multiples-summary-bg .summary-row {
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  gap: 60px;
+  gap: 50px;
   width: 100%;
   margin-bottom: 0;
   margin-top: 20px;
@@ -468,21 +470,23 @@ button.next-highlighted {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 100px;
+  min-width: 80px;
 }
 
 .multiples-summary-bg .summary-number {
   color: white;
-  font-size: 64px;
+  font-size: 56px;
   font-weight: bold;
-  margin-bottom: 15px;
+  margin-bottom: 8px;
+  font-family: Arial, sans-serif;
 }
 
 .multiples-summary-bg .summary-eq {
   color: white;
-  font-size: 42px;
-  font-weight: bold;
-  margin-top: 15px;
+  font-size: 32px;
+  font-weight: normal;
+  margin-top: 8px;
+  font-family: Arial, sans-serif;
 }
 
 /* Custom range slider styles */
