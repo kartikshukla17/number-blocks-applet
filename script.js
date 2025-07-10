@@ -1,4 +1,4 @@
-    const slides = [
+const slides = [
       {
         type: "interactive",
         text: "TAP on the UNIT SQUARES to bring them together.<br><br>What would this make?",
@@ -48,6 +48,7 @@
       {
         type: "slider-result",
         text: "These lengths are all formed by joining rods of 2…",
+        subtitle: "These numbers are called MULTIPLES of 2…",
         //character: "assets/character3.png",
         multiplier: 2,
         max: 10
@@ -82,19 +83,15 @@
         // --- SLIDER SLIDE DESIGN ---
         // No left panel for this slide
         const right = document.createElement("div");
-        right.className = "right-panel";
+        right.className = "right-panel slider-panel";
         right.style.flex = "1 1 100%";
         right.style.margin = "0 auto";
         right.style.width = "100%";
-        right.style.height = "100%";
+        right.style.height = "auto";
         right.style.background = "none";
 
-        // right.className = "unit-block";
-        // right.style.left = block.x + "px";
-        // right.style.top = block.y + "px";
-        // right.dataset.index = idx;
-
         const sliderContainer = document.createElement("div");
+        sliderContainer.className = "slider-container-compact";
         sliderContainer.style.width = "100%";
         sliderContainer.style.display = "flex";
         sliderContainer.style.flexDirection = "column";
@@ -111,18 +108,20 @@
         equation.style.marginBottom = "10px";
         equation.style.fontSize = "64px";
         equation.style.fontWeight = "bold";
-        let sliderValue = 2;
-        equation.innerHTML = `${slide.multiplier} × <span class="highlight">${sliderValue}</span> = ${slide.multiplier * sliderValue}`;
+        let sliderValue = 0;
+        equation.innerHTML = `2 × <span style="color:#ffd700">${sliderValue}</span> = ${2 * sliderValue}`;
         sliderContainer.appendChild(equation);
 
         // Rods row
         const rodsRow = document.createElement("div");
+        rodsRow.className = "slider-rod-row";
         rodsRow.style.display = "flex";
         rodsRow.style.alignItems = "flex-end";
-        rodsRow.style.gap = "30px";
-        rodsRow.style.marginBottom = "10px";
-        rodsRow.style.marginTop = "20px";
+        rodsRow.style.gap = "16px";
+        rodsRow.style.marginBottom = "0";
+        rodsRow.style.marginTop = "0";
         function renderRods(val) {
+          
           rodsRow.innerHTML = "";
           for (let i = 1; i <= val; i++) {
             const rodCol = document.createElement("div");
@@ -139,18 +138,23 @@
             topLabel.innerText = slide.multiplier * i;
             rodCol.appendChild(topLabel);
             // Rod block (long rectangle)
-            const rodBlock = document.createElement("div");
-            rodBlock.style.width = "60px";
-            rodBlock.style.height = "40px";
-            rodBlock.style.borderRadius = "12px";
-            rodBlock.style.background = "white";
-            rodBlock.style.border = "4px solid #2366cc";
-            rodBlock.style.display = "flex";
-            rodBlock.style.justifyContent = "center";
-            rodBlock.style.alignItems = "center";
-            rodBlock.style.boxShadow = "0 2px 10px rgba(0,0,0,0.08)";
-            rodBlock.style.margin = "0";
-            rodCol.appendChild(rodBlock);
+            // Inside renderRods(val)
+const rodBlock = document.createElement("div");
+rodBlock.style.display = "flex";
+rodBlock.style.gap = "4px";
+
+for (let j = 0; j < slide.multiplier; j++) {
+  const block = document.createElement("div");
+  block.style.width = "48px";
+  block.style.height = "48px";
+  block.style.borderRadius = "12px";
+  block.style.background = "white";
+  block.style.border = "4px solid #2366cc";
+  block.style.boxShadow = "0 2px 10px rgba(0,0,0,0.08)";
+  rodBlock.appendChild(block);
+}
+rodCol.appendChild(rodBlock);
+
             // Bottom label
             const botLabel = document.createElement("div");
             botLabel.style.color = "white";
@@ -167,13 +171,17 @@
 
         // Slider UI
         const sliderWrap = document.createElement("div");
+        sliderWrap.className = "slider-bar-wrap";
         sliderWrap.style.display = "flex";
         sliderWrap.style.flexDirection = "column";
         sliderWrap.style.alignItems = "center";
-        sliderWrap.style.marginTop = "30px";
-        sliderWrap.style.background = "rgba(255,255,255,0.08)";
+        sliderWrap.style.background = "#b7c9d6";
+        sliderWrap.style.border = "3px solid #ffd700";
         sliderWrap.style.borderRadius = "16px";
-        sliderWrap.style.padding = "24px 32px 16px 32px";
+        sliderWrap.style.padding = "18px 18px 8px 18px";
+        sliderWrap.style.marginTop = "18px";
+        sliderWrap.style.width = "90%";
+        sliderWrap.style.maxWidth = "700px";
         // Slider label
         const sliderLabel = document.createElement("div");
         sliderLabel.style.fontSize = "32px";
@@ -187,41 +195,65 @@
         sliderBar.min = 1;
         sliderBar.max = slide.max;
         sliderBar.value = sliderValue;
-        sliderBar.style.width = "520px";
-        sliderBar.style.margin = "0 0 10px 0";
+        sliderBar.style.width = "100%";
+        sliderBar.style.margin = "0 0 8px 0";
         sliderBar.step = 1;
         sliderBar.style.accentColor = "#ffd700";
         sliderBar.style.height = "8px";
         sliderWrap.appendChild(sliderBar);
         // Slider ticks
         const ticks = document.createElement("div");
-        ticks.style.display = "flex";
-        ticks.style.justifyContent = "space-between";
-        ticks.style.width = "520px";
-        ticks.style.marginTop = "-8px";
+        ticks.className = "slider-ticks";
         for (let i = 0; i <= slide.max; i++) {
-          const tick = document.createElement("div");
-          tick.style.textAlign = "center";
-          tick.style.width = "32px";
-          tick.style.color = "white";
-          tick.style.fontSize = "28px";
-          tick.style.opacity = i === sliderValue ? "1" : "0.5";
-          tick.innerText = i;
-          ticks.appendChild(tick);
+          const tickWrapper = document.createElement("div");
+tickWrapper.style.display = "flex";
+tickWrapper.style.flexDirection = "column";
+tickWrapper.style.alignItems = "center";
+tickWrapper.style.gap = "4px";
+
+// Circle dot
+const tickDot = document.createElement("div");
+tickDot.style.width = "16px";
+tickDot.style.height = "16px";
+tickDot.style.borderRadius = "50%";
+tickDot.style.backgroundColor = "#444";  // or gray
+tickDot.style.opacity = i === sliderValue ? "1" : "0.5";
+tickWrapper.appendChild(tickDot);
+
+// Number below
+const tickLabel = document.createElement("div");
+tickLabel.innerText = i;
+tickLabel.style.fontSize = "20px";
+tickLabel.style.color = "#fff";
+tickLabel.style.fontWeight = "bold";
+tickLabel.style.opacity = i === sliderValue ? "1" : "0.5";
+tickWrapper.appendChild(tickLabel);
+
+ticks.appendChild(tickWrapper);
+
         }
         sliderWrap.appendChild(ticks);
         sliderContainer.appendChild(sliderWrap);
 
         // Update rods, equation, and ticks on slider change
         sliderBar.addEventListener("input", (e) => {
-          sliderValue = parseInt(sliderBar.value);
-          renderRods(sliderValue);
-          equation.innerHTML = `${slide.multiplier} × <span class=\"highlight\">${sliderValue}</span> = ${slide.multiplier * sliderValue}`;
-          // Update tick highlight
-          Array.from(ticks.children).forEach((tick, idx) => {
-            tick.style.opacity = idx === sliderValue ? "1" : "0.5";
-          });
-        });
+  sliderValue = parseInt(sliderBar.value);
+  renderRods(sliderValue);
+  equation.innerHTML = `${slide.multiplier} × <span class="highlight">${sliderValue}</span> = ${sliderValue === 0 ? 0 : slide.multiplier * sliderValue}`;
+  
+  // Update tick highlight (works for custom tick style)
+  Array.from(ticks.children).forEach((tick, idx) => {
+    const dot = tick.querySelector('div'); // dot is first child
+    const label = tick.querySelector('div + div'); // label is second child
+    if (dot && label) {
+      const isActive = idx === sliderValue;
+      dot.style.opacity = isActive ? "1" : "0.5";
+      label.style.opacity = isActive ? "1" : "0.5";
+      dot.style.transform = isActive ? "scale(1.2)" : "scale(1)";
+    }
+  });
+});
+
 
         // Only append right panel for this slide
         slideDiv.appendChild(right);
@@ -237,13 +269,15 @@
         // --- SLIDER SLIDE DESIGN ---
         // No left panel for this slide
         const right = document.createElement("div");
-        right.className = "right-panel";
+        right.className = "right-panel slider-panel";
         right.style.flex = "1 1 100%";
         right.style.margin = "0 auto";
         right.style.width = "100%";
+        right.style.height = "auto";
         right.style.background = "none";
 
         const sliderContainer = document.createElement("div");
+        sliderContainer.className = "slider-container-compact";
         sliderContainer.style.width = "100%";
         sliderContainer.style.display = "flex";
         sliderContainer.style.flexDirection = "column";
@@ -266,11 +300,12 @@
 
         // Rods row
         const rodsRow = document.createElement("div");
+        rodsRow.className = "slider-rod-row";
         rodsRow.style.display = "flex";
         rodsRow.style.alignItems = "flex-end";
-        rodsRow.style.gap = "30px";
-        rodsRow.style.marginBottom = "10px";
-        rodsRow.style.marginTop = "20px";
+        rodsRow.style.gap = "16px";
+        rodsRow.style.marginBottom = "0";
+        rodsRow.style.marginTop = "0";
         function renderRods(val) {
           rodsRow.innerHTML = "";
           for (let i = 1; i <= val; i++) {
@@ -316,13 +351,17 @@
 
         // Slider UI
         const sliderWrap = document.createElement("div");
+        sliderWrap.className = "slider-bar-wrap";
         sliderWrap.style.display = "flex";
         sliderWrap.style.flexDirection = "column";
         sliderWrap.style.alignItems = "center";
-        sliderWrap.style.marginTop = "30px";
-        sliderWrap.style.background = "rgba(255,255,255,0.08)";
+        sliderWrap.style.background = "#b7c9d6";
+        sliderWrap.style.border = "3px solid #ffd700";
         sliderWrap.style.borderRadius = "16px";
-        sliderWrap.style.padding = "24px 32px 16px 32px";
+        sliderWrap.style.padding = "18px 18px 8px 18px";
+        sliderWrap.style.marginTop = "18px";
+        sliderWrap.style.width = "90%";
+        sliderWrap.style.maxWidth = "700px";
         // Slider label
         const sliderLabel = document.createElement("div");
         sliderLabel.style.fontSize = "32px";
@@ -336,24 +375,21 @@
         sliderBar.min = 1;
         sliderBar.max = slide.max;
         sliderBar.value = sliderValue;
-        sliderBar.style.width = "520px";
-        sliderBar.style.margin = "0 0 10px 0";
+        sliderBar.style.width = "100%";
+        sliderBar.style.margin = "0 0 8px 0";
         sliderBar.step = 1;
         sliderBar.style.accentColor = "#ffd700";
         sliderBar.style.height = "8px";
         sliderWrap.appendChild(sliderBar);
         // Slider ticks
         const ticks = document.createElement("div");
-        ticks.style.display = "flex";
-        ticks.style.justifyContent = "space-between";
-        ticks.style.width = "520px";
-        ticks.style.marginTop = "-8px";
+        ticks.className = "slider-ticks";
         for (let i = 0; i <= slide.max; i++) {
           const tick = document.createElement("div");
           tick.style.textAlign = "center";
           tick.style.width = "32px";
-          tick.style.color = "white";
-          tick.style.fontSize = "28px";
+          tick.style.color = "#fff";
+          tick.style.fontSize = "32px";
           tick.style.opacity = i === sliderValue ? "1" : "0.5";
           tick.innerText = i;
           ticks.appendChild(tick);
@@ -383,210 +419,164 @@
 
 
       if (slide.type === "slider-result") {
-        // --- SLIDER SLIDE DESIGN ---
-        // No left panel for this slide
-        const right = document.createElement("div");
-        right.className = "right-panel";
-        right.style.flex = "1 1 100%";
-        right.style.margin = "0 auto";
-        right.style.width = "100%";
-        right.style.height = "100%";
-        right.style.background = "none";
+  const right = document.createElement("div");
+  right.className = "right-panel";
+  right.style.flex = "1 1 100%";
+  right.style.margin = "0 auto";
+  right.style.width = "100%";
+  right.style.height = "100%";
+  right.style.background = "none";
+  right.style.display = "flex";
+  right.style.alignItems = "center";
+  right.style.justifyContent = "center";
 
-        const sliderContainer = document.createElement("div");
-        sliderContainer.style.width = "100%";
-        sliderContainer.style.display = "flex";
-        sliderContainer.style.flexDirection = "column";
-        sliderContainer.style.alignItems = "center";
-        sliderContainer.style.justifyContent = "center";
-        sliderContainer.style.gap = "30px";
-        sliderContainer.style.background = "rgba(0,0,0,0.15)";
-        sliderContainer.style.borderRadius = "20px";
-        sliderContainer.style.padding = "40px 0";
+  const box = document.createElement("div");
+  box.className = "slider-bar-wrap";
+  box.style.display = "flex";
+  box.style.flexDirection = "column";
+  box.style.alignItems = "center";
+  box.style.background = "#b7c9d6";
+  box.style.border = "3px solid #ffd700";
+  box.style.borderRadius = "16px";
+  box.style.padding = "30px 18px";
+  box.style.marginTop = "18px";
+  box.style.width = "95%";
+  box.style.maxWidth = "1000px";
 
-        // Title at the top
-        const title = document.createElement("div");
-        title.style.fontSize = "44px";
-        title.style.fontWeight = "bold";
-        title.style.color = "white";
-        title.style.textAlign = "center";
-        title.style.marginBottom = "30px";
-        title.innerText = slide.text || "These lengths are all formed by joining rods of 2…";
-        sliderContainer.appendChild(title);
+  // Main title
+const title = document.createElement("div");
+title.style.fontSize = "44px";
+title.style.fontWeight = "bold";
+title.style.color = "white";
+title.style.textAlign = "center";
+title.style.marginBottom = "10px";
+title.innerText = slide.text || "These lengths are all formed by joining rods of 2…";
+box.appendChild(title);
 
-        // Rods row (always show all rods, no slider)
-        const rodsRow = document.createElement("div");
-        rodsRow.style.display = "flex";
-        rodsRow.style.alignItems = "flex-end";
-        rodsRow.style.gap = "18px";
-        rodsRow.style.marginBottom = "0px";
-        rodsRow.style.marginTop = "10px";
-        rodsRow.style.width = "100%";
-        rodsRow.style.justifyContent = "center";
+// Subtitle
+if (slide.subtitle) {
+  const subtitle = document.createElement("div");
+  subtitle.style.fontSize = "28px";
+  subtitle.style.fontWeight = "bold";
+  subtitle.style.color = "white";
+  subtitle.style.textAlign = "center";
+  subtitle.style.marginBottom = "30px";
+  subtitle.innerText = slide.subtitle;
+  box.appendChild(subtitle);
+}
 
-        // Top labels
-        for (let i = 1; i <= 10; i++) {
-          const rodCol = document.createElement("div");
-          rodCol.style.display = "flex";
-          rodCol.style.flexDirection = "column";
-          rodCol.style.alignItems = "center";
-          rodCol.style.position = "relative";
-          rodCol.style.minWidth = "70px";
 
-          // Top label
-          const topLabel = document.createElement("div");
-          topLabel.style.color = "white";
-          topLabel.style.fontSize = "32px";
-          topLabel.style.fontWeight = "bold";
-          topLabel.style.marginBottom = "8px";
-          topLabel.innerText = slide.multiplier * i;
-          rodCol.appendChild(topLabel);
+  // Rods row
+  const rodsRow = document.createElement("div");
+  rodsRow.style.display = "flex";
+  rodsRow.style.flexWrap = "wrap";
+  rodsRow.style.justifyContent = "center";
+  rodsRow.style.alignItems = "flex-end";
+  rodsRow.style.gap = "26px";
+  rodsRow.style.marginTop = "10px";
+  rodsRow.style.width = "100%";
 
-          // Rod block (long rectangle)
-          const rodBlock = document.createElement("div");
-          rodBlock.style.width = "60px";
-          rodBlock.style.height = "60px";
-          rodBlock.style.borderRadius = "14px";
-          rodBlock.style.background = "white";
-          rodBlock.style.border = "4px solid #2366cc";
-          rodBlock.style.display = "flex";
-          rodBlock.style.justifyContent = "center";
-          rodBlock.style.alignItems = "center";
-          rodBlock.style.boxShadow = "0 2px 10px rgba(0,0,0,0.08)";
-          rodBlock.style.margin = "0";
-          rodCol.appendChild(rodBlock);
+  for (let i = 1; i <= 10; i++) {
+    const rodCol = document.createElement("div");
+    rodCol.style.display = "flex";
+    rodCol.style.flexDirection = "column";
+    rodCol.style.alignItems = "center";
+    rodCol.style.position = "relative";
+    rodCol.style.minWidth = "60px";
 
-          // Bottom label
-          const botLabel = document.createElement("div");
-          botLabel.style.color = "white";
-          botLabel.style.fontSize = "26px";
-          botLabel.style.fontWeight = "bold";
-          botLabel.style.marginTop = "8px";
-          botLabel.innerText = `${slide.multiplier}×${i}`;
-          rodCol.appendChild(botLabel);
+    // Top label
+    const topLabel = document.createElement("div");
+    topLabel.style.color = "white";
+    topLabel.style.fontSize = "32px";
+    topLabel.style.fontWeight = "bold";
+    topLabel.style.marginBottom = "8px";
+    topLabel.innerText = 2 * i;
+    rodCol.appendChild(topLabel);
 
-          rodsRow.appendChild(rodCol);
-        }
-        sliderContainer.appendChild(rodsRow);
+    // Rod blocks (2 white boxes)
+    const rodBlock = document.createElement("div");
+    rodBlock.style.display = "flex";
+    rodBlock.style.gap = "4px";
+    for (let j = 0; j < 2; j++) {
+      const block = document.createElement("div");
+      block.style.width = "32px";
+      block.style.height = "32px";
+      block.style.borderRadius = "8px";
+      block.style.background = "white";
+      block.style.border = "3px solid #2366cc";
+      rodBlock.appendChild(block);
+    }
+    rodCol.appendChild(rodBlock);
 
-        // Add a row of numbers above the rods (for spacing, optional)
-        // Add a row of numbers at the end (for 20 at the rightmost)
-        const lastNum = document.createElement("div");
-        lastNum.style.position = "absolute";
-        lastNum.style.right = "60px";
-        lastNum.style.top = "120px";
-        lastNum.style.color = "white";
-        lastNum.style.fontSize = "32px";
-        lastNum.style.fontWeight = "bold";
-        lastNum.innerText = slide.multiplier * 10;
-        // Not strictly needed, as the last rodCol already has the number
+    // Bottom label
+    const botLabel = document.createElement("div");
+    botLabel.style.color = "white";
+    botLabel.style.fontSize = "22px";
+    botLabel.style.fontWeight = "bold";
+    botLabel.style.marginTop = "8px";
+    botLabel.innerText = `2 × ${i}`;
+    rodCol.appendChild(botLabel);
 
-        // Only append right panel for this slide
-        slideDiv.appendChild(right);
-        right.appendChild(sliderContainer);
-        container.appendChild(slideDiv);
-        updateProgress();
-        updateNavigation();
-        return;
-      }
+    rodsRow.appendChild(rodCol);
+  }
+
+  box.appendChild(rodsRow);
+  slideDiv.appendChild(right);
+  right.appendChild(box);
+  container.appendChild(slideDiv);
+  updateProgress();
+  updateNavigation();
+  return;
+}
+
 
 
       if (slide.type === "multiples-summary") {
         // --- MULTIPLES SUMMARY SLIDE ---
-        const right = document.createElement("div");
-        right.className = "right-panel";
-        right.style.flex = "1 1 100%";
-        right.style.margin = "0 auto";
-        right.style.width = "100%";
-        right.style.height = "100%";
-        right.style.background = "none";
-        right.style.position = "relative";
+        // Single full background block, centered content
+        const bg = document.createElement("div");
+        bg.className = "multiples-summary-bg";
 
-        const summaryContainer = document.createElement("div");
-        summaryContainer.style.width = "100%";
-        summaryContainer.style.display = "flex";
-        summaryContainer.style.flexDirection = "column";
-        summaryContainer.style.alignItems = "center";
-        summaryContainer.style.justifyContent = "center";
-        summaryContainer.style.gap = "30px";
-        summaryContainer.style.background = "rgba(0,0,0,0.15)";
-        summaryContainer.style.borderRadius = "20px";
-        summaryContainer.style.padding = "40px 0 0 0";
-
-        // Title at the top
+        // Title
         const title = document.createElement("div");
-        title.style.fontSize = "44px";
-        title.style.fontWeight = "bold";
-        title.style.color = "white";
-        title.style.textAlign = "center";
-        title.style.marginBottom = "10px";
+        title.className = "summary-title";
         title.innerText = "MULTIPLES of 2";
-        summaryContainer.appendChild(title);
+        bg.appendChild(title);
 
         // Subtitle
         const subtitle = document.createElement("div");
-        subtitle.style.fontSize = "32px";
-        subtitle.style.fontWeight = "bold";
-        subtitle.style.color = "white";
-        subtitle.style.textAlign = "center";
-        subtitle.style.marginBottom = "30px";
-        subtitle.innerHTML = "are all numbers that can be made up of 2<br>multiplied by a natural number";
-        summaryContainer.appendChild(subtitle);
+        subtitle.className = "summary-subtitle";
+        subtitle.innerText = "are all numbers that can be made up of 2\nmultiplied by a natural number";
+        bg.appendChild(subtitle);
 
         // Row of numbers and equations
         const numbersRow = document.createElement("div");
-        numbersRow.style.display = "flex";
-        numbersRow.style.justifyContent = "center";
-        numbersRow.style.alignItems = "flex-end";
-        numbersRow.style.gap = "38px";
-        numbersRow.style.marginBottom = "0px";
-        numbersRow.style.marginTop = "10px";
-        numbersRow.style.width = "100%";
-
+        numbersRow.className = "summary-row";
         for (let i = 1; i <= 10; i++) {
           const col = document.createElement("div");
-          col.style.display = "flex";
-          col.style.flexDirection = "column";
-          col.style.alignItems = "center";
-          col.style.position = "relative";
-          col.style.minWidth = "70px";
-
+          col.className = "summary-col";
           // Top label (number)
           const topLabel = document.createElement("div");
-          topLabel.style.color = "white";
-          topLabel.style.fontSize = "32px";
-          topLabel.style.fontWeight = "bold";
-          topLabel.style.marginBottom = "8px";
+          topLabel.className = "summary-number";
           topLabel.innerText = 2 * i;
           col.appendChild(topLabel);
-
           // Bottom label (equation)
           const botLabel = document.createElement("div");
-          botLabel.style.color = "white";
-          botLabel.style.fontSize = "26px";
-          botLabel.style.fontWeight = "bold";
-          botLabel.style.marginTop = "8px";
+          botLabel.className = "summary-eq";
           botLabel.innerText = `2×${i}`;
           col.appendChild(botLabel);
-
           numbersRow.appendChild(col);
         }
-        summaryContainer.appendChild(numbersRow);
+        bg.appendChild(numbersRow);
 
-        // Character image at bottom right, replacing Next button
+        // Character image at bottom right, inside the background
         const characterImg = document.createElement("img");
         characterImg.src = "assets/character4.png";
         characterImg.alt = "character";
-        characterImg.style.position = "absolute";
-        characterImg.style.right = "40px";
-        characterImg.style.bottom = "0px";
-        characterImg.style.height = "260px";
-        characterImg.style.zIndex = "2";
-        right.appendChild(characterImg);
+        bg.appendChild(characterImg);
 
-        // Only append right panel for this slide
-        slideDiv.appendChild(right);
-        right.appendChild(summaryContainer);
+        // Only append the background block for this slide
+        slideDiv.appendChild(bg);
         container.appendChild(slideDiv);
         updateProgress();
         updateNavigation();
@@ -645,6 +635,10 @@
         const resultContainer = document.createElement("div");
         resultContainer.className = "rod-result";
         
+        // Set green background for panels
+        left.classList.add("result-left-panel");
+        right.classList.add("result-right-panel");
+        
         const valueDiv = document.createElement("div");
         valueDiv.className = "result-text";
         valueDiv.innerText = slide.rodValue;
@@ -653,13 +647,13 @@
         rod.className = "rod";
         for (let i = 0; i < slide.rodValue; i++) {
           const block = document.createElement("div");
-          block.className = "unit-block";
+          block.className = "unit-block result-block";
           rod.appendChild(block);
         }
         
         const equation = document.createElement("div");
         equation.className = "equation";
-        equation.innerHTML = `${slide.rodValue} × <span class="highlight">1</span> = ${slide.rodValue}`;
+        equation.innerHTML = `${slide.rodValue} × <span class=\"highlight\">1</span> = ${slide.rodValue}`;
         
         resultContainer.appendChild(valueDiv);
         resultContainer.appendChild(rod);
