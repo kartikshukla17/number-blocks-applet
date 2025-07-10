@@ -1,0 +1,16 @@
+{
+  "name": "multiples-of-2-learning-game",
+  "version": "1.0.0",
+  "description": "A learning game for multiples of 2",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx http-server . -p 3000 -o",
+    "start": "npx http-server . -p 3000 -o"
+  },
+  "keywords": ["education", "math", "learning", "game", "multiples"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
