@@ -35,26 +35,28 @@ body {
   padding: 40px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: flex-start;
   text-align: left;
   position: relative;
 }
 
 .left-panel div {
-  font-size: 52px;
+  font-size: 48px;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   line-height: 1.1;
   color: white;
+  text-align: center;
+  width: 100%;
 }
 
 .character {
-  height: 450px;
+  height: 380px;
   width: auto;
   object-fit: contain;
   align-self: center;
-  margin-top: auto;
+  margin-top: 20px;
 }
 
 .right-panel {
@@ -69,35 +71,38 @@ body {
 }
 
 .unit-block {
-  width: 120px;
-  height: 120px;
+  width: 140px;
+  height: 140px;
   border-radius: 20px;
   background-color: white;
-  border: 6px solid #2366cc;
+  border: 8px solid #2366cc;
   position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: bold;
-  font-size: 24px;
+  font-size: 28px;
   color: #333;
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
 }
 
 .unit-label {
   position: absolute;
-  top: -60px;
+  top: -80px;
   color: white;
-  font-size: 72px;
+  font-size: 96px;
   font-weight: bold;
   left: 50%;
   transform: translateX(-50%);
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
 .highlighted {
-  box-shadow: 0 0 0 6px #ffd700, 0 0 0 12px #2366cc;
+  box-shadow: 0 0 0 8px #ffd700, 0 0 0 16px #2366cc, 0 4px 20px rgba(0,0,0,0.25);
   transform: scale(1.1);
+  border-color: #ffd700;
 }
 
 .rod-result {

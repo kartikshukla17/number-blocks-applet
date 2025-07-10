@@ -5,8 +5,8 @@ const slides = [
         character: "assets/character1.png",
         characterAfterClick: "assets/character2.png",
         blocks: [
-          { x: 250, y: 150, label: 1 },
-          { x: 450, y: 350, label: 1 }
+          { x: 180, y: 80, label: 1 },
+          { x: 380, y: 280, label: 1 }
         ]
       },
       {
@@ -21,8 +21,8 @@ const slides = [
         character: "assets/character1.png",
         characterAfterClick: "assets/character2.png",
         blocks: [
-          { x: 250, y: 150, label: 2 },
-          { x: 450, y: 350, label: 2 }
+          { x: 180, y: 80, label: 2 },
+          { x: 380, y: 280, label: 2 }
         ]
       },
       {
