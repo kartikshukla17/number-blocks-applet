@@ -418,7 +418,7 @@ button.next-highlighted {
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  padding: 60px 40px 40px 40px;
+  padding: 60px 40px 60px 40px;
   margin: 0 auto;
   position: relative;
   overflow: hidden;
@@ -431,9 +431,9 @@ button.next-highlighted {
 
 .multiples-summary-bg img {
   position: absolute;
-  right: 20px;
-  bottom: -20px;
-  height: 200px;
+  right: 60px;
+  bottom: 60px;
+  height: 280px;
   z-index: 2;
 }
 
