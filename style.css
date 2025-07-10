@@ -433,7 +433,7 @@ button.next-highlighted {
   position: absolute;
   right: 20px;
   bottom: -20px;
-  height: 320px;
+  height: 200px;
   z-index: 2;
 }
 
