@@ -89,7 +89,7 @@ const slides = [
         // Equation at the top
         const equation = document.createElement("div");
         equation.className = "equation";
-        let sliderValue = 0; // Start at 0
+        let sliderValue = 2; // Start at 0
         equation.innerHTML = sliderValue === 0 ? "" : `2 × <span class="highlight">${sliderValue}</span> = ${2 * sliderValue}`;
         content.appendChild(equation);
 
