@@ -267,6 +267,7 @@ const slides = [
         return;
       }
 
+
       if (slide.type === "multiples-summary") {
         // Full width summary slide
         const bg = document.createElement("div");
@@ -310,11 +311,7 @@ const slides = [
         }
         bg.appendChild(numbersRow);
 
-        // Character image
-        const characterImg = document.createElement("img");
-        characterImg.src = "assets/character4.png";
-        characterImg.alt = "character";
-        bg.appendChild(characterImg);
+        
 
         slideDiv.appendChild(bg);
         container.appendChild(slideDiv);
@@ -323,6 +320,11 @@ const slides = [
         
         // Hide Next button for final slide
         document.getElementById("nextBtn").style.visibility = "hidden";
+        // Character image
+        const characterImg = document.createElement("img");
+        characterImg.src = "assets/character4.png";
+        characterImg.alt = "character";
+        bg.appendChild(characterImg);
         return;
       }
 
@@ -355,8 +357,7 @@ const slides = [
             div.appendChild(label);
             // Add two unit blocks inside the rod
             const rodBlocks = document.createElement("div");
-            rodBlocks.style.display = "flex";
-            rodBlocks.style.gap = "6px";
+            rodBlocks.className = "rod-blocks";  // So it picks the CSS styling
             for (let j = 0; j < 2; j++) {
               const blockDiv = document.createElement("div");
               blockDiv.className = "unit-block";
