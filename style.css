@@ -431,9 +431,9 @@ button.next-highlighted {
 
 .multiples-summary-bg img {
   position: absolute;
-  right: 40px;
+  right: 20px;
   bottom: -20px;
-  height: 400px;
+  height: 320px;
   z-index: 2;
 }
 
