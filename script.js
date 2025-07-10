@@ -7,8 +7,6 @@ const slides = [
         blocks: [
           { x: 180, y: 80, label: 1 },
           { x: 380, y: 280, label: 1 }
-          { x: 180, y: 80, label: 1 },
-          { x: 380, y: 280, label: 1 }
         ]
       },
       {
@@ -23,8 +21,6 @@ const slides = [
         character: "assets/character1.png",
         characterAfterClick: "assets/character2.png",
         blocks: [
-          { x: 180, y: 80, label: 2 },
-          { x: 380, y: 280, label: 2 }
           { x: 180, y: 80, label: 2 },
           { x: 380, y: 280, label: 2 }
         ]
@@ -74,7 +70,6 @@ const slides = [
       if (document.getElementById("nextBtn")) {
         document.getElementById("nextBtn").style.visibility = "visible";
         document.getElementById("nextBtn").classList.remove("next-highlighted");
-        document.getElementById("nextBtn").classList.remove("next-highlighted");
       }
 
       const slideDiv = document.createElement("div");
@@ -82,18 +77,11 @@ const slides = [
 
       if (slide.type === "slider") {
         // Full width slider slide
-        // Full width slider slide
         const sliderContainer = document.createElement("div");
         sliderContainer.className = "right-panel slider-panel";
         sliderContainer.style.flex = "1 1 100%";
         sliderContainer.style.margin = "0";
-        sliderContainer.className = "right-panel slider-panel";
-        sliderContainer.style.flex = "1 1 100%";
-        sliderContainer.style.margin = "0";
         sliderContainer.style.width = "100%";
-
-        const content = document.createElement("div");
-        content.className = "slider-container-compact";
 
         const content = document.createElement("div");
         content.className = "slider-container-compact";
@@ -109,7 +97,6 @@ const slides = [
         const rodsRow = document.createElement("div");
         rodsRow.className = "slider-rod-row";
         
-        
         function renderRods(val) {
           rodsRow.innerHTML = "";
           if (val === 0) return; // Show nothing for 0
@@ -117,10 +104,7 @@ const slides = [
             const rodCol = document.createElement("div");
             
             // Top label (result number)
-            
-            // Top label (result number)
             const topLabel = document.createElement("div");
-            topLabel.innerText = 2 * i;
             topLabel.innerText = 2 * i;
             rodCol.appendChild(topLabel);
             
@@ -141,48 +125,24 @@ const slides = [
             rodCol.appendChild(rodBlock);
             
             // Bottom label (equation)
-            
-            // Rod blocks
-            const rodBlock = document.createElement("div");
-            rodBlock.style.display = "flex";
-            rodBlock.style.gap = "6px";
-            for (let j = 0; j < 2; j++) {
-              const block = document.createElement("div");
-              block.style.width = "48px";
-              block.style.height = "48px";
-              block.style.borderRadius = "12px";
-              block.style.background = "white";
-              block.style.border = "4px solid #2366cc";
-              block.style.boxShadow = "0 2px 10px rgba(0,0,0,0.08)";
-              rodBlock.appendChild(block);
-            }
-            rodCol.appendChild(rodBlock);
-            
-            // Bottom label (equation)
             const botLabel = document.createElement("div");
             botLabel.innerText = `2×${i}`;
-            botLabel.innerText = `2×${i}`;
             rodCol.appendChild(botLabel);
-            
             
             rodsRow.appendChild(rodCol);
           }
         }
         renderRods(sliderValue);
         content.appendChild(rodsRow);
-        content.appendChild(rodsRow);
 
-        // Slider controls
         // Slider controls
         const sliderWrap = document.createElement("div");
         sliderWrap.className = "slider-bar-wrap";
-        
         
         // Slider label
         const sliderLabel = document.createElement("div");
         sliderLabel.innerText = slide.text;
         sliderWrap.appendChild(sliderLabel);
-        
         
         // Slider bar
         const sliderBar = document.createElement("input");
@@ -192,7 +152,6 @@ const slides = [
         sliderBar.value = sliderValue;
         sliderBar.step = 1;
         sliderWrap.appendChild(sliderBar);
-        
         
         // Slider ticks
         const ticks = document.createElement("div");
@@ -213,26 +172,10 @@ const slides = [
           tickWrapper.appendChild(tickLabel);
           
           ticks.appendChild(tickWrapper);
-          
-          // Circle dot
-          const tickDot = document.createElement("div");
-          tickDot.style.opacity = i === sliderValue ? "1" : "0.5";
-          tickDot.style.transform = i === sliderValue ? "scale(1.2)" : "scale(1)";
-          tickWrapper.appendChild(tickDot);
-          
-          // Number below
-          const tickLabel = document.createElement("div");
-          tickLabel.innerText = i;
-          tickLabel.style.opacity = i === sliderValue ? "1" : "0.5";
-          tickWrapper.appendChild(tickLabel);
-          
-          ticks.appendChild(tickWrapper);
         }
         sliderWrap.appendChild(ticks);
         content.appendChild(sliderWrap);
-        content.appendChild(sliderWrap);
 
-        // Update on slider change
         // Update on slider change
         sliderBar.addEventListener("input", (e) => {
           sliderValue = parseInt(sliderBar.value);
@@ -247,17 +190,9 @@ const slides = [
             dot.style.opacity = isActive ? "1" : "0.5";
             label.style.opacity = isActive ? "1" : "0.5";
             dot.style.transform = isActive ? "scale(1.2)" : "scale(1)";
-            const dot = tick.children[0];
-            const label = tick.children[1];
-            const isActive = idx === sliderValue;
-            dot.style.opacity = isActive ? "1" : "0.5";
-            label.style.opacity = isActive ? "1" : "0.5";
-            dot.style.transform = isActive ? "scale(1.2)" : "scale(1)";
           });
         });
 
-        sliderContainer.appendChild(content);
-        slideDiv.appendChild(sliderContainer);
         sliderContainer.appendChild(content);
         slideDiv.appendChild(sliderContainer);
         container.appendChild(slideDiv);
@@ -273,18 +208,7 @@ const slides = [
         resultContainer.style.flex = "1 1 100%";
         resultContainer.style.margin = "0";
         resultContainer.style.width = "100%";
-        // Full width result slide
-        const resultContainer = document.createElement("div");
-        resultContainer.className = "slider-result-container";
-        resultContainer.style.flex = "1 1 100%";
-        resultContainer.style.margin = "0";
-        resultContainer.style.width = "100%";
 
-        // Main title
-        const title = document.createElement("div");
-        title.className = "slider-result-title";
-        title.innerText = slide.text || "These lengths are all formed by joining rods of 2…";
-        resultContainer.appendChild(title);
         // Main title
         const title = document.createElement("div");
         title.className = "slider-result-title";
@@ -298,17 +222,7 @@ const slides = [
           subtitle.innerText = slide.subtitle;
           resultContainer.appendChild(subtitle);
         }
-        // Subtitle if exists
-        if (slide.subtitle) {
-          const subtitle = document.createElement("div");
-          subtitle.className = "slider-result-subtitle";
-          subtitle.innerText = slide.subtitle;
-          resultContainer.appendChild(subtitle);
-        }
 
-        // Rods display
-        const rodsContainer = document.createElement("div");
-        rodsContainer.className = "slider-result-rods";
         // Rods display
         const rodsContainer = document.createElement("div");
         rodsContainer.className = "slider-result-rods";
@@ -316,15 +230,7 @@ const slides = [
         for (let i = 1; i <= 10; i++) {
           const rodCol = document.createElement("div");
           rodCol.className = "slider-result-rod";
-        for (let i = 1; i <= 10; i++) {
-          const rodCol = document.createElement("div");
-          rodCol.className = "slider-result-rod";
 
-          // Top value
-          const topLabel = document.createElement("div");
-          topLabel.className = "slider-result-rod-value";
-          topLabel.innerText = 2 * i;
-          rodCol.appendChild(topLabel);
           // Top value
           const topLabel = document.createElement("div");
           topLabel.className = "slider-result-rod-value";
@@ -340,21 +246,7 @@ const slides = [
             rodBlocks.appendChild(block);
           }
           rodCol.appendChild(rodBlocks);
-          // Rod blocks
-          const rodBlocks = document.createElement("div");
-          rodBlocks.className = "slider-result-rod-blocks";
-          for (let j = 0; j < 2; j++) {
-            const block = document.createElement("div");
-            block.className = "slider-result-rod-block";
-            rodBlocks.appendChild(block);
-          }
-          rodCol.appendChild(rodBlocks);
 
-          // Bottom equation
-          const botLabel = document.createElement("div");
-          botLabel.className = "slider-result-rod-equation";
-          botLabel.innerText = `2 × ${i}`;
-          rodCol.appendChild(botLabel);
           // Bottom equation
           const botLabel = document.createElement("div");
           botLabel.className = "slider-result-rod-equation";
@@ -363,19 +255,7 @@ const slides = [
 
           rodsContainer.appendChild(rodCol);
         }
-          rodsContainer.appendChild(rodCol);
-        }
 
-        resultContainer.appendChild(rodsContainer);
-        slideDiv.appendChild(resultContainer);
-        container.appendChild(slideDiv);
-        updateProgress();
-        updateNavigation();
-        
-        // Highlight Next button
-        document.getElementById("nextBtn").classList.add("next-highlighted");
-        return;
-      }
         resultContainer.appendChild(rodsContainer);
         slideDiv.appendChild(resultContainer);
         container.appendChild(slideDiv);
@@ -389,12 +269,8 @@ const slides = [
 
       if (slide.type === "multiples-summary") {
         // Full width summary slide
-        // Full width summary slide
         const bg = document.createElement("div");
         bg.className = "multiples-summary-bg";
-        bg.style.flex = "1 1 100%";
-        bg.style.margin = "0";
-        bg.style.width = "100%";
         bg.style.flex = "1 1 100%";
         bg.style.margin = "0";
         bg.style.width = "100%";
@@ -419,14 +295,10 @@ const slides = [
           col.className = "summary-col";
           
           // Top number
-          
-          // Top number
           const topLabel = document.createElement("div");
           topLabel.className = "summary-number";
           topLabel.innerText = 2 * i;
           col.appendChild(topLabel);
-          
-          // Bottom equation
           
           // Bottom equation
           const botLabel = document.createElement("div");
@@ -434,12 +306,10 @@ const slides = [
           botLabel.innerText = `2×${i}`;
           col.appendChild(botLabel);
           
-          
           numbersRow.appendChild(col);
         }
         bg.appendChild(numbersRow);
 
-        // Character image
         // Character image
         const characterImg = document.createElement("img");
         characterImg.src = "assets/character4.png";
@@ -452,13 +322,10 @@ const slides = [
         updateNavigation();
         
         // Hide Next button for final slide
-        
-        // Hide Next button for final slide
         document.getElementById("nextBtn").style.visibility = "hidden";
         return;
       }
 
-      // Regular slides with left and right panels
       // Regular slides with left and right panels
       const left = document.createElement("div");
       left.className = "left-panel";
@@ -514,7 +381,6 @@ const slides = [
               clickedBlocks.push(idx);
               
               if (clickedBlocks.length === 1) {
-                // Change character when first block is clicked
                 // Change character when first block is clicked
                 const characterImg = document.querySelector('.character');
                 if (characterImg && slide.characterAfterClick) {
