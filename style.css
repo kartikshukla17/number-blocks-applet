@@ -1,12 +1,12 @@
 body {
   margin: 0;
-  font-family: "Arial", sans-serif;
-  font-weight: bold;
-  background: rgb(14,67,91);
+  font-family: 'Baloo', cursive;
+  background: rgb(14, 67, 91);
   color: white;
   height: 100vh;
   overflow: hidden;
 }
+
 
 #app {
   height: 100vh;
@@ -35,10 +35,13 @@ body {
   padding: 40px 40px 0px 40px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+  justify-content: space-between;
+  align-items: center;
   text-align: left;
   position: relative;
+  overflow: hidden;
+  max-width: 30%; /* Ensure enough height for content */
+  max-height: 750px;
 }
 
 .left-panel div {
@@ -51,10 +54,30 @@ body {
   width: 100%;
 }
 
+.left-panel > div:first-child {
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  line-height: 1.1;
+  color: white;
+  text-align: center;
+  width: 100%;
+  flex-shrink: 0; /* Prevent text from being squeezed */
+}
+
 .character {
-  height: 380px;
-  width: auto;
+  width: 100%; /* Take full width of container */
+  height: auto; /* Maintain aspect ratio */
+  max-height: 50vh; /* Limit maximum height */
   object-fit: contain;
+  /* object-position: bottom right; Position at bottom right */
+  margin-top: 20px; /* Space between text and image */
+  align-self: flex-end; /* Align to right */
+}
+
+.result-left-panel .character {
+  /* width: 120%; Allow image to be wider */
+  max-height: 30vh; /* Slightly smaller for result slides */
 }
 
 .right-panel {
@@ -67,13 +90,31 @@ body {
   position: relative;
   overflow: hidden;
 }
+/* For the result slide with equation at bottom */
+.result-right-panel .rod-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; /* Reduced gap */
+  color: white;
+  justify-content: center;
+  height: 100%;
+}
+
+.result-right-panel .equation {
+  font-size: 48px;
+  font-weight: bold;
+  margin-top: 0; /* Remove extra margin */
+  color: white;
+}
+
 
 .unit-block {
   width: 80px;
   height: 80px;
   border-radius: 20px;
   background-color: white;
-  border: 8px solid #2366cc;
+  border: 3px solid #2366cc;
   position: absolute;
   display: flex;
   justify-content: center;
@@ -98,7 +139,7 @@ body {
 }
 
 .highlighted {
-  box-shadow: 0 0 0 0px #2366cc, 0 0 0 10px #ffd700, 0 4px 20px rgba(0,0,0,0.25);
+  box-shadow: 0 0 0 0px #2366cc, 0 0 0 6px #ffd700, 0 4px 20px rgba(0,0,0,0.25);
   transform: scale(1.1);
   border-color: #2366cc;
 }
@@ -155,6 +196,8 @@ body {
   box-sizing: border-box;
   height: 100px;
 }
+
+
 
 button {
   font-size: 36px;
@@ -226,6 +269,7 @@ button.next-highlighted {
   background: rgb(75,120,141);
   border-radius: 20px;
   padding: 40px 40px 0 40px;
+  max-height: 750px;
 }
 
 .slider-container-compact {
@@ -292,6 +336,7 @@ button.next-highlighted {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-bottom: 30px;
 }
 
 .slider-bar-wrap > div:first-child {
@@ -486,7 +531,12 @@ button.next-highlighted {
   }
   
   .character {
-    height: 350px;
+    max-height: 40vh;
+    transform: translateX(10%);
+  }
+  
+  .result-left-panel .character {
+    max-height: 35vh;
   }
   
   .unit-block {
@@ -571,7 +621,13 @@ button.next-highlighted {
   }
   
   .character {
-    height: 250px;
+    width: 150%;
+    max-height: 30vh;
+    transform: translateX(5%);
+  }
+  
+  .left-panel > div:first-child {
+    font-size: 36px;
   }
   
   .unit-block {
@@ -897,7 +953,7 @@ input[type="range"] {
 }
 .multiples-summary-bg .summary-subtitle {
   font-size: 40px;
-  font-weight: bold;
+  /* font-weight: bold; */
   color: white;
   margin-bottom: 60px;
   text-align: center;
@@ -996,19 +1052,22 @@ input[type="range"] {
 }
 
 .interactive-rod {
+  position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  /* gap: 6px; */
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .interactive-rod .unit-label {
+  position: relative;
+  top: 0;
+  left: 0;
+  transform: none;
+  margin-bottom: 10px;
   font-size: 48px;
-  font-weight: bold;
   color: white;
-  margin-bottom: 8px;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
 .interactive-rod .rod-blocks {
@@ -1016,21 +1075,33 @@ input[type="range"] {
   gap: 6px;
 }
 
-.interactive-rod .rod-blocks .unit-block {
+.interactive-rod .rod-block  {
   width: 80px;
   height: 80px;
   border-radius: 10px;
   background-color: white;
   border: 2px solid #2366cc;
+  position: relative;
 }
 
-.interactive-rod.highlighted {
+interactive-rod .rod-block:first-child {
+  border-radius: 20px 0 0 20px;
+  border-right: none;
+}
+
+.interactive-rod .rod-block:last-child {
+  border-radius: 0 20px 20px 0;
+  border-left: none;
+}
+
+
+/* .interactive-rod.highlighted {
   /* transform: scale(1.05);  */
   /* box-shadow: 0 0 0 6px #ffd700, 0 0 0 12px #2366cc, 0 4px 15px rgba(0,0,0,0.2); */
-  border-radius: 20px;
-}
+  /* border-radius: 20px; */
+/* } */
 
-.interactive-rod.highlighted .unit-block {
+/* .interactive-rod.highlighted .unit-block { */
   /* border-color: #ffd700; */
   /* box-shadow: 0 0 0 0px #ffd700, 0 0 0 6px #2366cc, 0 4px 20px rgba(0,0,0,0.25); */
-}
+/* } */ 

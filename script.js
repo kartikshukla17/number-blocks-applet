@@ -21,9 +21,19 @@ const slides = [
         character: "assets/character1.png",
         characterAfterClick: "assets/character2.png",
         blocks: [
-          { x: 180, y: 80, label: 2 },
-          { x: 380, y: 280, label: 2 }
-        ]
+    { 
+      x: 180, 
+      y: 80, 
+      label: 2,
+      isRod: true // Add this flag
+    },
+    { 
+      x: 380, 
+      y: 280, 
+      label: 2,
+      isRod: true // Add this flag
+    }
+  ]
       },
       {
         type: "result",
@@ -65,7 +75,7 @@ const slides = [
       const slide = slides[index];
       const container = document.getElementById("slide-container");
       container.innerHTML = "";
-
+      
       // Always show Next button by default
       if (document.getElementById("nextBtn")) {
         document.getElementById("nextBtn").style.visibility = "visible";
@@ -75,6 +85,7 @@ const slides = [
       const slideDiv = document.createElement("div");
       slideDiv.className = "slide";
 
+      //slider highlight fix and navigation button fix
       if (slide.type === "slider") {
         // Full width slider slide
         const sliderContainer = document.createElement("div");
@@ -286,6 +297,8 @@ const slides = [
         const subtitle = document.createElement("div");
         subtitle.className = "summary-subtitle";
         subtitle.innerText = "are all numbers that can be made up of 2\nmultiplied by a natural number";
+        subtitle.style.textAlign = "center";
+        subtitle.style.fontStyle = "italic";
         bg.appendChild(subtitle);
 
         // Row of numbers and equations
@@ -340,6 +353,7 @@ const slides = [
         clickedBlocks = [];
         slide.blocks.forEach((block, idx) => {
           let div;
+          //changes to be done here for color and size of 2 boxes and box positioning
           if (block.label === 2) {
             // Render a rod (2 connected unit blocks)
             div = document.createElement("div");
@@ -409,6 +423,7 @@ const slides = [
         right.classList.add("result-right-panel");
 
         // Special case: if rodValue is 4 and previous slide was joining two 2-unit rods, show two rods of 2
+        // for the 4th slide fix
         if (slide.rodValue === 4 && slides[index - 1] && slides[index - 1].type === "interactive" && slides[index - 1].blocks && slides[index - 1].blocks[0].label === 2) {
           // Show two rods of 2 blocks each, each with a '2' label above
           for (let i = 0; i < 2; i++) {
